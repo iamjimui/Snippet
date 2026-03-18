@@ -1,0 +1,33 @@
+.side-menu {
+    background-color: var(--kDarkGray);
+    height: calc(100vh - 16px - 55px - 16px - 16px);
+}
+
+.menu-item {
+    button {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-radius: 0;
+        font-weight: bold;
+        color: var(--kLight);
+        transition: all .1s ease-in-out;
+    }
+
+    button:hover {
+        opacity: 0.5;
+    }
+
+    button:focus {
+      border-color: var(--bs-btn-focus-border-color);
+    }
+
+    button.selected-menu:hover {
+      opacity: 1
+    }
+}
+
+.selected-menu {
+    color: var(--kBlue) !important;
+}

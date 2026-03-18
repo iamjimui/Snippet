@@ -1,0 +1,104 @@
+.comments-box {
+    position: relative;
+    border: 1px solid;
+    border-radius: 8px;
+    height: 75vh;
+    padding: 5px;
+    overflow: hidden;
+
+    .input-wrapper {
+        border: 1px solid;
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 100%;
+        display: flex;
+    }
+
+    .send-btn-wrapper {
+        height: 50px;
+        width: 50px;
+        background-color: var(--kBlue);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        border-radius: 2px !important;
+
+        ion-icon {
+            font-size: 25px;
+            color: var(--kLight);
+        }
+    }
+
+    .emoji-picker {
+        position: absolute;
+        bottom: 50px;
+        right: 0;
+    }
+}
+
+.comments-flow {
+    height: calc(100% - 52px);
+    position: relative;
+    overflow-y: auto;
+
+    .empty,
+    .loading {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+}
+
+.owner {
+    flex-direction: row-reverse;
+
+    .comment-text {
+        margin-right: 10px;
+        // text-align: right;
+    }
+}
+
+.comment-wrapper {
+    display: flex;
+    align-items: start;
+
+    .comment-text {
+        color: var(--kLight);
+        font-size: 13px;
+        padding: 0.5rem;
+        margin-left: 10px;
+        background-color: var(--kDarkGray);
+        border-radius: 4px;
+        min-width: 80px;
+        max-width: 250px;
+        border: 1px solid rgba($color: #fff, $alpha: 0.1);
+    }
+
+    .delete-icon {
+        display: none;
+    }
+
+    .emoji-only {
+        font-size: 35px !important;
+        background: none;
+        border: none;
+        padding: 0;
+    }
+}
+
+.comment-wrapper:hover {
+    .delete-icon {
+        display: block;
+    }
+}
+
+.comment-author {
+    color: var(--kLight);
+    opacity: 0.5;
+    font-size: 11px;
+    text-align: center;
+    margin-top: 5px;
+}

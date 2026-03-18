@@ -1,0 +1,10 @@
+<p class="m-0 justify-content-end d-flex langList">
+    <span *ngFor="let item of srcTab; let i = index">
+        <span *ngIf="i < 3" class="lang" [ngStyle]="{'z-index': i, 'margin-left': i > 0 ? '-10px' : 'none'}">
+            <img height="18px" src="{{item}}" onerror="this.onerror=null; this.src='assets/images/pizza.svg'" alt="">
+        </span>
+    </span>
+    <span *ngIf="srcTab.length > 3" class="lang" style="z-index: 10;margin-left:-10px">
+        +{{ srcTab.length - 3 }}
+    </span>
+</p>

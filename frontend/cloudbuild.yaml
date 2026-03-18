@@ -1,0 +1,32 @@
+steps:
+  - name: gcr.io/cloud-builders/docker
+    args:
+      - 'build'
+      - '-t'
+      - '$_GCR_HOSTNAME/$PROJECT_ID/$_GITHUB/$REPO_FULL_NAME/frontend:$COMMIT_SHA'
+      - '--build-arg'
+      - 'ENV=${_ANGULAR_ENV}'
+      - '-f'
+      - 'frontend/Dockerfile'
+      - 'frontend/'
+
+  - name: gcr.io/cloud-builders/docker
+    args:
+      - push
+      - '$_GCR_HOSTNAME/$PROJECT_ID/$_GITHUB/$REPO_FULL_NAME/frontend:$COMMIT_SHA'
+
+  - name: gcr.io/google.com/cloudsdktool/cloud-sdk
+    args:
+      - 'run'
+      - 'deploy'
+      - '$_SERVICE_NAME'
+      - '--image'
+      - '$_GCR_HOSTNAME/$PROJECT_ID/$_GITHUB/$REPO_FULL_NAME/frontend:$COMMIT_SHA'
+      - '--region'
+      - '$_DEPLOY_REGION'
+      - '--platform'
+      - '$_PLATFORM'
+    entrypoint: gcloud
+timeout: 1200s
+images:
+  - '$_GCR_HOSTNAME/$PROJECT_ID/$_GITHUB/$REPO_FULL_NAME/frontend:$COMMIT_SHA'

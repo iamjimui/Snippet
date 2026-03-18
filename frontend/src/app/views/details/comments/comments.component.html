@@ -1,0 +1,61 @@
+<div class="comments-box">
+    <div class="comments-flow">
+        <div *ngIf="comments.length">
+            <div *ngFor="let item of comments; let i = index" class="comment-box m-1">
+                <div class="comment-wrapper" [ngClass]="{'owner': item.userEmail === user.username}">
+
+                    <img *ngIf=" !(i > 0 && item.userEmail === comments[i - 1].userEmail)"
+                        src="assets/images/avatar.svg" height="20px" width="20px"
+                        class="object-fit-cover rounded-circle">
+
+                    <div *ngIf="(i > 0 && item.userEmail === comments[i - 1].userEmail)" style="width:20px;">
+                    </div>
+
+
+                    <div class="comment-text"
+                        [ngClass]="{ 'emoji-only': containsOnlyEmojis(item.content) && item.content.length < 7 }">
+                        {{item.content}}
+                    </div>
+
+                    <ion-icon *ngIf="item.userEmail === user.username" name="trash-outline" (click)="deleteComment(item)"
+                        class="text-light opacity-50 ms-2 btn-icon delete-icon">
+                    </ion-icon>
+
+                </div>
+                <p class="comment-author"
+                    *ngIf="(i < comments.length - 1 && item.userEmail !== comments[i + 1].userEmail) || (i === comments.length - 1)">
+                    {{ item.userEmail.split("@")[0] }} . {{ item.createdAt | date }}
+                </p>
+            </div>
+            <span #bottom></span>
+        </div>
+
+        <ion-icon *ngIf="!comments.length && !loadingComments" class="text-light fs-1 empty" name="bonfire">
+        </ion-icon>
+
+        <app-loader class="loading" *ngIf="loadingComments"></app-loader>
+    </div>
+
+
+    <div class="input-wrapper">
+        <div class="input-group">
+            <input type="text" class="form-control custom-input shadow-none" placeholder="Type your message here"
+                maxlength="600" [(ngModel)]="comment" #inputComment>
+
+            <span class="input-group-text custom-input">
+                <ion-icon *ngIf="!showEmojiPicker" name="happy-outline" class="fw-bold btn-icon fs-4"
+                    (click)="showEmojiPicker = true">
+                </ion-icon>
+                <ion-icon *ngIf="showEmojiPicker" name="close" class="fw-bold btn-icon fs-4"
+                    (click)="showEmojiPicker = false">
+                </ion-icon>
+            </span>
+        </div>
+        <div class="btn send-btn-wrapper" (click)="addComment()">
+            <ion-icon name="paper-plane"></ion-icon>
+        </div>
+    </div>
+    <emoji-mart *ngIf="showEmojiPicker" title="Pick your emoji…" emoji="fire" color="#3476CD" [darkMode]="true"
+        class="emoji-picker" [emojiSize]="22" (emojiSelect)="emojiSelect($event)" id="emojiMart">
+    </emoji-mart>
+</div>

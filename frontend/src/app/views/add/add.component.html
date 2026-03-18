@@ -1,0 +1,166 @@
+<div class="container" style="height: 100vh">
+    <app-navbar [title]="'Create new snippet'"></app-navbar>
+    <div class="h-100 overflow-x-scroll mt-4">
+        <div class="row">
+            <div class="col">
+                <label for="snippetTitle" class="form-label text-light"
+                    >Your snippet title</label
+                >
+                <div class="input-group">
+                    <input
+                        type="text"
+                        class="form-control custom-input shadow-none"
+                        id="snippetTitle"
+                        [ngClass]="{ 'is-invalid': errorTitle && !title }"
+                        [(ngModel)]="title"
+                    />
+                </div>
+            </div>
+
+            <div class="col">
+                <add-tag-dropdown [selectedTags]="selectedTags" (selectedTagsEvent)="onTagsEmitted($event)" (errorTagsEvent)="onErrorTagsEmitted($event)"></add-tag-dropdown>
+            </div>
+        </div>
+        <div class="mt-4">
+            <div class="snippet-window">
+                <div class="snippet-header">
+                    <div class="circle">
+                        <span class="btn-icon"></span>
+                        <span class="btn-icon"></span>
+                        <span class="btn-icon"></span>
+                    </div>
+
+                    <div class="sheat" #sheetName>
+                        <div
+                            class="sheet-title"
+                            *ngFor="let sheet of snippetSheets; let i = index"
+                            [ngClass]="{ activeSheet: i === activedSheatIndex }"
+                            (click)="activateSheat(i)"
+                        >
+                            <p>
+                                <img
+                                    src="{{ languageIcon(sheet.language.name) }}"
+                                    height="15px"
+                                    alt=""
+                                    onerror="this.onerror=null; this.src='assets/images/pizza.svg'"
+                                />
+                                <span
+                                    class="text-light text-start opacity-50 fw-bold ms-2 d-flex align-items-center justify-content-center overflow-hidden"
+                                    style="
+                                        height: 35px;
+                                        min-width: 60px;
+                                        max-width: 200px;
+                                    "
+                                    contenteditable="true"
+                                >
+                                    {{ sheet.name }}
+                                </span>
+                            </p>
+
+                            <ion-icon
+                                *ngIf="i === activedSheatIndex"
+                                name="close"
+                                class="text-light fs-6 btn-icon ms-2"
+                                (click)="removeSheat(i)"
+                            >
+                            </ion-icon>
+                            <ion-icon
+                            name="add"
+                            class="text-light fs-5 btn-icon ms-3"
+                            (click)="addSheat()"
+                        ></ion-icon>
+                        </div>
+                        
+                    </div>
+                </div>
+
+                <div class="snippet-content" #code></div>
+
+                <div class="snippet-language text-light dropdown">
+                    <span
+                        class="d-flex align-items-center"
+                        style="cursor: pointer"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                    >
+                        <ion-icon name="list" class="btn-icon"></ion-icon>
+                        <span class="me-2">{{
+                            snippetSheets[activedSheatIndex].language.name
+                        }}</span>
+                        <img
+                            src="{{
+                                languageIcon(
+                                    snippetSheets[activedSheatIndex].language.name
+                                )
+                            }}"
+                            height="15px"
+                            alt=""
+                            onerror="this.onerror=null; this.src='assets/images/pizza.svg'"
+                        />
+                    </span>
+
+                    <ul
+                        class="dropdown-menu dropdown-menu-wrapper dropdown-menu-dark"
+                        style="max-height: 230px; overflow: auto"
+                    >
+                        <li class="m-2">
+                            <input
+                                type="text"
+                                class="form-control custom-input-sm-darkGray shadow-none"
+                                placeholder="Enter language name"
+                                [(ngModel)]="searchedLanguage"
+                            />
+                        </li>
+
+                        <li>
+                            <hr class="dropdown-divider" />
+                        </li>
+
+                        <li
+                            *ngFor="
+                                let language of languagesService.language$
+                                    | async
+                                    | languagesFilter : searchedLanguage;
+                                let i = index
+                            "
+                            (click)="selectLanguage(language)"
+                        >
+                            <p
+                                class="dropdown-item m-0"
+                                style="cursor: pointer"
+                            >
+                                <img
+                                    src="{{ languageIcon(language.name) }}"
+                                    alt=""
+                                    height="18px"
+                                    onerror="this.onerror=null; this.src='assets/images/pizza.svg'"
+                                />
+                                {{ language }}
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-3 d-flex justify-content-between">
+            <app-ios-switch
+                [value]="visible"
+                label="Private"
+                (changeEvent)="switchChange($event)"
+            ></app-ios-switch>
+
+            <button
+                *ngIf="!loading"
+                class="btn custom-btn"
+                style="width: 200px !important"
+                (click)="saveSnippet()"
+            >
+                Save snippet
+            </button>
+            <app-loader *ngIf="loading"></app-loader>
+        </div>
+
+        <div style="height: 100px"></div>
+    </div>
+</div>

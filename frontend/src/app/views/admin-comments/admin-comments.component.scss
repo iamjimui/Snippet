@@ -1,0 +1,49 @@
+.side-menu {
+    background-color: var(--kDarkGray);
+    z-index:1;
+    position:relative;
+}
+
+.menu-item {
+    button {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-radius: 0;
+        font-weight: bold;
+        color: var(--kLight);
+        transition: all .1s ease-in-out;
+    }
+
+    button:hover {
+        opacity: 0.5;
+    }
+
+    button:focus {
+      border-color: var(--bs-btn-focus-border-color);
+    }
+
+    button.selected-menu:hover {
+      opacity: 1
+    }
+}
+
+.selected-menu {
+    color: var(--kBlue) !important;
+}
+
+p, span, h1, h2, hr {
+    color:white;
+}
+
+.button-modify {
+    background-color: var(--kDarkGray);
+    color: white;
+}
+
+.scroll {
+    height: 100vh;
+    overflow:auto;
+    border: 1px solid red;
+}

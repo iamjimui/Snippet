@@ -1,0 +1,129 @@
+.snippet-card {
+    position: relative;
+    min-height: 330px;
+    background-color: var(--kDarkGray);
+    border-radius: 2px;
+    padding: 1rem !important;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.snippet-card:hover {
+    transform: scale(0.99);
+}
+
+.snippet-card a {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.visually-hidden {
+    position: absolute;
+    width: 0;
+    overflow: hidden;
+    opacity: 0;
+}
+
+.snippet-details-code pre code.hljs {
+    max-height: 50vh;
+    overflow: scroll;
+    font-size: 13px;
+}
+
+.snippet-details-code {
+    position: relative;
+
+    ion-icon {
+        position: absolute;
+        top: 30px;
+        right: 10px;
+        opacity: 0.3;
+        color: var(--kLight);
+    }
+}
+
+.comments-box {
+    position: relative;
+    width: 50%;
+    border: 0.4px solid;
+
+    .input-wrapper {
+        border: 1px solid;
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 100%;
+        display: flex;
+    }
+
+    .send-btn-wrapper {
+        height: 50px;
+        width: 50px;
+        background-color: var(--kBlue);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        border-radius: 2px !important;
+
+        ion-icon {
+            font-size: 25px;
+            color: var(--kLight);
+        }
+    }
+
+    .emoji-picker {
+        position: absolute;
+        bottom: 50px;
+        right: 0;
+    }
+}
+
+.comments-flow {
+    height: calc(100% - 52px);
+    position: relative;
+
+    ion-icon {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+}
+
+.comment-wrapper {
+    position: relative;
+    display: flex;
+
+    .comment-avatar {
+        height: 30px;
+        width: 30px;
+        border-radius: 100%;
+        border: 1px solid;
+    }
+
+    .comment-text {
+        color: var(--kLight);
+        font-size: 13px;
+        padding: 0.5rem;
+        margin-left: 10px;
+        background-color: var(--kDark);
+        border-radius: 2px;
+        min-width: 70px;
+    }
+
+    .emoji-only {
+        font-size: 27px !important;
+        background: none;
+    }
+}
+
+.comment-author {
+    color: var(--kLight);
+    font-size: 11px;
+    text-align: center;
+    margin-top: 5px;
+}

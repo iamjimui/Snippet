@@ -1,0 +1,151 @@
+<div class="side-menu p-4">
+    <button class="btn custom-btn mb-4" (click)="router.navigate(['add'])">
+        New snippet
+    </button>
+    <nav aria-label="snippets navigation">
+        <div
+            class="d-flex align-items-center justify-content-between mb-2 menu-item"
+            *ngFor="let item of menu"
+        >
+            <button
+                class="btn menu-item"
+                [ngClass]="{ 'selected-menu': selected.menu === item.value }"
+                (click)="selectMenuItem(item.value)"
+            >
+                <span class="d-flex align-items-center">
+                    <ion-icon name="{{ item.icon }}"></ion-icon>
+                    <span class="title ms-2" style="font-size: 14px">{{
+                        item.title
+                    }}</span>
+                </span>
+                <span style="font-size: 12px">{{
+                    (item.observe | async)?.length
+                }}</span>
+            </button>
+        </div>
+    </nav>
+
+    <p class="d-flex justify-content-between text-light m-0 mb-1 mt-4 fw-bold">
+        <span style="font-size: 14px" class="d-flex align-items-center">
+            <span style="text-transform: uppercase">Filter by language</span>
+            <ion-icon
+                *ngIf="selected.language"
+                name="close"
+                class="btn-icon ms-2"
+                (click)="selectLanguage('')"
+            ></ion-icon>
+        </span>
+        <span style="font-size: 12px">{{
+            (languagesService.language$ | async)!.length
+        }}</span>
+    </p>
+
+    <div class="input-group mb-3">
+        <span class="input-group-text custom-input-sm-dark" id="basic-addon1">
+            <ion-icon name="search"></ion-icon>
+        </span>
+        <input
+            type="text"
+            class="form-control custom-input-sm-dark shadow-none"
+            placeholder="Search language"
+            [(ngModel)]="searchedLanguage"
+        />
+    </div>
+
+    <div
+        *ngIf="!(languagesService.loading$ | async)"
+        class="overflow-auto"
+        style="max-height: 200px"
+    >
+        <div
+            class="d-flex align-items-center justify-content-between mb-1 menu-item"
+            *ngFor="
+                let item of languagesService.language$
+                    | async
+                    | languagesFilter : searchedLanguage;
+                let i = index
+            "
+        >
+            <button class="btn d-flex menu-item" (click)="selectLanguage(item)">
+                <span class="title">
+                    <img
+                        src="{{ languageIcon(item) }}"
+                        onerror="this.onerror=null; this.src='assets/images/pizza.svg'"
+                        alt=""
+                        height="18px"
+                    />
+                    <span class="ms-2" style="font-size: 14px">{{ item }}</span>
+                </span>
+                <ion-icon
+                    *ngIf="selected.language === item"
+                    style="color: var(--kBlue)"
+                    name="radio-button-on"
+                >
+                </ion-icon>
+            </button>
+        </div>
+    </div>
+
+    <app-loader *ngIf="languagesService.loading$ | async"></app-loader>
+
+    <p class="d-flex justify-content-between text-light m-0 mb-1 mt-4 fw-bold">
+        <span style="font-size: 14px; text-transform: uppercase"
+            >Filter by tags</span
+        >
+        <span style="font-size: 12px">{{
+            (tagService.tags$ | async)!.length
+        }}</span>
+    </p>
+
+    <div class="dropdown text-center">
+        <button
+            class="btn custom-input-sm-dark w-100 d-flex align-items-center"
+            type="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+        >
+            <ion-icon name="pricetag" class="me-4"></ion-icon>
+            <span class="opacity-50">Search tags</span>
+        </button>
+        <ul
+            style="max-height: 200px"
+            class="dropdown-menu dropdown-menu-wrapper dropdown-menu-dark overflow-auto"
+        >
+            <li class="m-2">
+                <input
+                    type="text"
+                    class="form-control custom-input-sm-darkGray shadow-none"
+                    placeholder="Filter"
+                    [(ngModel)]="searchedTag"
+                />
+            </li>
+            <li>
+                <hr class="dropdown-divider" />
+            </li>
+            <li
+                *ngFor="
+                    let tag of (tagService.tags$ | async)!.sort()
+                        | tagsFilter : searchedTag;
+                    let i = index
+                "
+                (click)="selectTag(tag)"
+            >
+                <p class="dropdown-item m-0">{{ tag }}</p>
+            </li>
+        </ul>
+    </div>
+
+    <div class="d-flex flex-wrap mt-1">
+        <div *ngFor="let tag of selected.tags">
+            ‡
+            <span class="tag-item">
+                <span class="me-1">{{ tag }}</span>
+                <ion-icon
+                    class="fs-6 btn-icon"
+                    name="close-circle"
+                    (click)="removeTag(tag)"
+                ></ion-icon>
+            </span>
+        </div>
+    </div>
+</div>

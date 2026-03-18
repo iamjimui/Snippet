@@ -1,0 +1,26 @@
+pre code.hljs {
+    height: 200px !important;
+    border-radius: 2px;
+}
+
+.snippet-code {
+    height: 200px;
+    font-size: 12px !important;
+    position: relative;
+    overflow: hidden;
+}
+
+.gradient {
+    height: 90px;
+    background-color: var(--kDarkGray);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgb(22, 27, 34);
+    background: linear-gradient(180deg, rgba(22, 27, 34, 0.14189425770308128) 0%, rgba(22, 27, 34, 0.8309698879551821) 50%, rgba(22, 27, 34, 0.9318102240896359) 75%, rgba(22, 27, 34, 1) 100%);
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    padding: 2px;
+}

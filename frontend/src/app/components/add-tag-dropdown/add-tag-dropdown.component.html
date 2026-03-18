@@ -1,0 +1,73 @@
+<label class="form-label text-light">Tags</label>
+                <div class="dropdown">
+                    <div class="custom-input d-flex w-100 align-items-center">
+                        <button
+                            class="btn custom-input d-flex align-items-center justify-content-center"
+                            data-bs-toggle="dropdown"
+                            aria-haspopup="true"
+                            aria-expanded="false"
+                        >
+                            <ion-icon name="add" class="me-2"></ion-icon>
+                            <span>Add tag</span>
+                        </button>
+                        <ion-icon
+                            *ngIf="errorTags"
+                            name="alert-circle-outline"
+                            class="text-danger fs-5 fw-bold"
+                        ></ion-icon>
+                        <div
+                            class="d-flex justify-content-between align-items-center"
+                        >
+                            <div *ngFor="let tag of selectedTags">
+                                <span class="tag-item">
+                                    <span class="me-1">{{ tag }}</span>
+                                    <ion-icon
+                                        class="fs-6 btn-icon"
+                                        name="close-circle"
+                                        (click)="removeTag(tag)"
+                                    ></ion-icon>
+                                </span>
+                            </div>
+                        </div>
+                        <div
+                            style="max-height: 200px"
+                            class="dropdown-menu dropdown-menu-wrapper dropdown-menu-dark overflow-auto"
+                            aria-labelledby="dropdownMenuButton"
+                        >
+                            <div class="m-2 form-group">
+                                <input
+                                    type="text"
+                                    class="form-control custom-input-sm-darkGray shadow-none"
+                                    placeholder="Filter"
+                                    [(ngModel)]="searchedTag"
+                                    (ngModelChange)="tagChange()"
+                                />
+                            </div>
+                            <div class="dropdown-divider"></div>
+                            <a
+                                href="javascript:void(0)"
+                                *ngFor="
+                                    let tag of (tagService.tags$
+                                        | async)!.sort()
+                                        | tagsFilter : searchedTag;
+                                    let i = index
+                                "
+                                (click)="selectTag(tag, $event)"
+                                data-keepOpenOnClick
+                                class="dropdown-item"
+                            >
+                                {{ tag }}
+                            </a>
+                            <a
+                                href="javascript:void(0)"
+                                class="dropdown-item"
+                                (click)="selectTag(newTag, $event)"
+                                *ngIf="newTag"
+                            >
+                                <p class="m-0 fw-bold text-warning">
+                                    Create tag "{{ newTag }}"
+                                </p>
+                            </a>
+                        </div>
+                    </div>
+                </div>

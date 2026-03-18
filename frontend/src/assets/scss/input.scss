@@ -1,0 +1,31 @@
+::placeholder {
+    color: var(--kLight) !important;
+    opacity: 0.5 !important;
+    font-family: 'Nunito', sans-serif;
+}
+
+.custom-input {
+    height: 50px !important;
+    border: none !important;
+    border-radius: 2px !important;
+    background-color: var(--kDarkGray) !important;
+    color: var(--kLight) !important;
+}
+
+.custom-input-sm-dark {
+    height: 30px !important;
+    border: none !important;
+    border-radius: 2px !important;
+    background-color: var(--kDark) !important;
+    color: var(--kLight) !important;
+    font-size: 15px !important;
+}
+
+.custom-input-sm-darkGray {
+    height: 30px !important;
+    border: none !important;
+    border-radius: 2px !important;
+    background-color: var(--kDarkGray) !important;
+    color: var(--kLight) !important;
+    font-size: 15px !important;
+}

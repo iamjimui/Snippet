@@ -1,0 +1,7 @@
+<ion-icon *ngIf="snippet.bookmarkedBy.indexOf(user.username!) !== -1" name="heart" class="fs-6 btn-icon"
+    style="color:#8d8f97;" (click)="unlike()">
+</ion-icon>
+
+<ion-icon *ngIf="snippet.bookmarkedBy.indexOf(user.username!) === -1" name="heart-outline" class="fs-6 btn-icon"
+    style="color:#8d8f97;" (click)="like()">
+</ion-icon>

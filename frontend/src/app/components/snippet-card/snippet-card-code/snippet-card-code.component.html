@@ -1,0 +1,19 @@
+<div class="text-light snippet-code p-0">
+    <pre>
+        <code [highlight]="snippet.sheets[0].content.slice(0, 500)">
+        </code>
+    </pre>
+    <div class="gradient">
+        <span *ngIf="snippet.visible" class="d-flex align-items-center text-warning fw-bold">
+            <ion-icon name="finger-print" class="btn-icon fs-6"></ion-icon>
+            <span>Private</span>
+        </span>
+        <span *ngIf="!snippet.visible">
+        </span>
+        <span>
+            <app-copy-button [snippet]="snippet"></app-copy-button>
+            <app-favorite-button [snippet]="snippet"></app-favorite-button>
+        </span>
+
+    </div>
+</div>

@@ -1,0 +1,12 @@
+.page-item {
+    a {
+        cursor: pointer;
+        color: #172d5a;
+    }
+}
+
+.active>.page-link {
+    background-color: #172d5a !important;
+    border-color: #172d5a !important;
+    color: #fff !important;
+}

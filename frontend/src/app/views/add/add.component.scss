@@ -1,0 +1,92 @@
+.snippet-window {
+    height: 60vh;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0px 1px 7px rgba($color: #000000, $alpha: 0.6);
+    position: relative;
+
+    .snippet-header {
+        height: 40px;
+        background-color: #303439;
+        display: flex;
+
+        .circle {
+            width: 75px;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px;
+
+            span {
+                height: 13px;
+                width: 13px;
+                border-radius: 100%;
+
+                &:nth-child(1) {
+                    background-color: #EC6A5E;
+                }
+
+                &:nth-child(2) {
+                    background-color: #F4BF4F;
+                }
+
+                &:nth-child(3) {
+                    background-color: #61C554;
+                }
+            }
+
+        }
+
+        .sheat {
+            height: 100%;
+            width: 100%;
+            margin-left: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            cursor: pointer;
+
+            .sheet-title {
+                height: 100%;
+                min-width: 150px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding-left: 11px;
+                padding-right: 11px;
+
+                p {
+                    margin: 0;
+                    font-size: 14px;
+                    display: flex;
+                    align-items: center;
+                }
+            }
+
+            .activeSheet {
+                background-color: #282936;
+            }
+        }
+
+
+    }
+
+    .snippet-content {
+        height: calc(100% - 75px);
+        overflow: scroll;
+    }
+
+    .snippet-language {
+        position: absolute;
+        bottom: 0;
+        background-color: #303439;
+        border-radius: 2px;
+        width: 100%;
+        height: 35px;
+        padding: 7px;
+        font-size: 14px;
+        font-weight: bold;
+        z-index: 99999;
+    }
+}

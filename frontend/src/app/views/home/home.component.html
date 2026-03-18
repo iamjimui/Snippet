@@ -1,0 +1,109 @@
+<div class="container">
+    <app-navbar></app-navbar>
+
+    <div class="row mt-3 overflow-y-auto">
+        <div class="col-xl-3 col-lg-5 col-sm-6">
+            <app-side-menu></app-side-menu>
+        </div>
+
+        <div
+            *ngIf="
+                !(snippetService.loading$ | async) &&
+                (snippetService.currentView$ | async)?.length!
+            "
+            class="col overflow-y-auto main-bloc"
+        >
+            <div class="row">
+                <div
+                    class="col-xl-6 col-lg-12 p-0 p-2"
+                    *ngFor="
+                        let snippet of (snippetService.currentView$ | async)!
+                            | orderBy : 'desc'
+                            | snippetFiler
+                                : (snippetService.searchedValue$ | async)!
+                            | slice : start : end
+                    "
+                >
+                    <app-snippet-card [snippet]="snippet">
+                        <app-snippet-card-header>
+                            <app-snippet-card-title
+                                title="{{ snippet.title }}"
+                                >{{ snippet.title }}</app-snippet-card-title
+                            >
+                            <app-language-flag
+                                [sheets]="snippet.sheets"
+                            ></app-language-flag>
+                        </app-snippet-card-header>
+
+                        <app-snippet-card-body>
+                            <app-snippet-card-code
+                                [snippet]="snippet"
+                            ></app-snippet-card-code>
+                            <app-snippet-card-tags
+                                [tags]="snippet.tags"
+                            ></app-snippet-card-tags>
+                        </app-snippet-card-body>
+
+                        <app-snippet-card-footer>
+                            <span class="fw-bold"
+                                >By {{ snippet.userEmail }}</span
+                            >
+                            <span class="d-flex">
+                                <span class="me-1 d-flex align-items-center">
+                                    {{ snippet.nbComments }}
+                                    <ion-icon
+                                        name="chatbubbles"
+                                        class="ms-1"
+                                    ></ion-icon>
+                                </span>
+                                <span class="mx-2">|</span>
+                                <span class="d-flex align-items-center">
+                                    {{ snippet.sheets.length }}
+                                    <ion-icon
+                                        name="document"
+                                        class="ms-1"
+                                    ></ion-icon>
+                                </span>
+                            </span>
+                        </app-snippet-card-footer>
+                    </app-snippet-card>
+                </div>
+            </div>
+
+            <div class="mt-2"></div>
+
+            <app-pagination
+                *ngIf="
+                    !(snippetService.loading$ | async) &&
+                    (snippetService.currentView$ | async)?.length
+                "
+                [total]="(snippetService.currentView$ | async)?.length!"
+                [itemsPerView]="snippetsPerView"
+                (current)="jumpTo($event)"
+            >
+            </app-pagination>
+        </div>
+
+        <div
+            *ngIf="snippetService.loading$ | async"
+            class="col d-flex align-items-center justify-content-center"
+        >
+            <app-loader ariaLabel="loading snippets"></app-loader>
+        </div>
+
+        <div
+            *ngIf="
+                !(snippetService.currentView$ | async)?.length! &&
+                !(snippetService.loading$ | async)
+            "
+            class="col d-flex flex-column align-items-center justify-content-center"
+        >
+            <ion-icon
+                name="bonfire"
+                class="text-light"
+                style="font-size: 70px"
+            ></ion-icon>
+            <p class="text-light">No snippets match your search</p>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,9 @@
+.info-box {
+    width: 180px;
+}
+
+p {
+    white-space: nowrap;
+    text-overflow: ellipsis !important;
+    overflow: hidden;
+}

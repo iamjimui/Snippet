@@ -1,0 +1,17 @@
+<h1 style="text-align:center;">Admin Dashboard</h1>
+<h2 style="text-align:center;">List of Comments of User n°{{this.id}}</h2>
+
+<div *ngFor = "let comment of commentsService.commentsSubjectAdmin.value">
+    <div style="text-align:center;">
+        <p>{{comment | json}}</p>
+        <span>Comment n°{{comment.id}}</span><br>
+        <span>Message : {{comment.message}}</span>
+        <form (ngSubmit)="submitForm($event)" action="">
+            <input name="id" type="hidden" value="{{comment.id}}">
+            <input name="message" type="text">
+            <button class="btn btn-primary" type="submit" name="update">Update</button>
+            <button class="btn btn-primary" type="submit" name="delete">Delete</button>
+        </form>
+    </div>
+    <hr style="font-size:2em;"/>
+</div>

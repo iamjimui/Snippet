@@ -1,0 +1,32 @@
+<div class="container">
+    <div style="height: 200px;"></div>
+
+    <div class="w-75 m-auto bg-snap">
+        <p class="text-light fs-1 fw-bold">Welcome Back 😎</p>
+        <div class="row">
+            <div class="col">
+                <div class="input-group mb-3">
+                    <span class="input-group-text custom-input" id="basic-addon1">🥷</span>
+                    <input type="text" class="form-control custom-input" [(ngModel)]="username" placeholder="Username" aria-label="Username">
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <div class="input-group mb-3">
+                    <span class="input-group-text custom-input" id="basic-addon1">🔐</span>
+                    <input type="password" class="form-control custom-input" [(ngModel)]="password" placeholder="Password" aria-label="Password">
+                </div>
+            </div>
+
+        </div>
+    
+        <button *ngIf="!loading" class="btn custom-btn" style="width: 200px !important;" (click)="login()">Login</button>
+        <app-loader *ngIf="loading"></app-loader>
+
+        <p class="text-end mt-4 text-light">
+            Not a member yet ? <a class="btn btn-link text-warning" routerLink="/register"> Become a member here. 😎</a>
+        </p>
+    </div>
+</div>

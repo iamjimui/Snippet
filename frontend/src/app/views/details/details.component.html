@@ -1,0 +1,111 @@
+<div class="container">
+    <app-navbar title="{{ snippet.title }}"></app-navbar>
+
+    <div class="d-flex justify-content-between align-items-center mt-4">
+        <div class="d-flex flex-wrap">
+            <div *ngFor="let item of snippet.tags">
+                <span class="tag-item">
+                    <span class="me-1">{{ item }}</span>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-8">
+            <div class="snippet-window">
+                <div class="snippet-header">
+                    <div class="circle">
+                        <span class="btn-icon"></span>
+                        <span class="btn-icon"></span>
+                        <span class="btn-icon"></span>
+                    </div>
+
+                    <div class="sheat">
+                        <div
+                            class="sheat-title"
+                            *ngFor="let sheat of snippet.sheets; let i = index"
+                            [ngClass]="{ activeSheat: i === activedSheatIndex }"
+                            (click)="activateSheat(i)"
+                        >
+                            <p>
+                                <img
+                                    src="{{ languageIcon(sheat.language.name) }}"
+                                    height="15px"
+                                    alt=""
+                                    onerror="this.onerror=null; this.src='assets/images/pizza.svg'"
+                                />
+                                <span
+                                    class="text-light opacity-50 fw-bold ms-2"
+                                >
+                                    {{ sheat.name }}
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="snippet-content" #code></div>
+
+                <div class="snippet-language text-light">
+                    <span class="" *ngIf="snippet.sheets.length">
+                        <span class="me-2">{{
+                            snippet.sheets[activedSheatIndex].language.name
+                        }}</span>
+                        <img
+                            src="{{
+                                languageIcon(
+                                    snippet.sheets[activedSheatIndex].language.name
+                                )
+                            }}"
+                            height="15px"
+                            alt=""
+                            onerror="this.onerror=null; this.src='assets/images/pizza.svg'"
+                        />
+                    </span>
+
+                    <span
+                        class="d-flex align-items-center"
+                        style="cursor: pointer"
+                        (click)="copyCode()"
+                    >
+                        <span class="me-2">Copy</span>
+                        <ion-icon name="copy"></ion-icon>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col p-0">
+            <app-comments></app-comments>
+        </div>
+    </div>
+
+    <div class="d-flex mt-2" style="font-size: 13px">
+        <span class="text-light fw-bold me-2" *ngIf="snippet">
+            Created at {{ snippet.createdAt | date }} | by
+            <span class="text-warning">{{
+                snippet.userEmail.split("@")[0]
+            }}</span>
+        </span>
+        <span
+            *ngIf="snippet.userEmail === user.username || user.role === 'ROLE_ADMIN'"
+            class="text-primary fw-bold"
+            style="cursor: pointer"
+            role="button"
+            (click)="edit()"
+        >
+            Edit
+        </span>
+        <span *ngIf="snippet.userEmail === user.username" class="text-light mx-2">|</span>
+        <span
+            *ngIf="snippet.userEmail === user.username || user.role === 'ROLE_ADMIN'"
+            class="text-danger fw-bold"
+            style="cursor: pointer"
+            role="button"
+            (click)="delete()"
+        >
+            Delete
+        </span>
+    </div>
+</div>

@@ -1,0 +1,67 @@
+<div class="container">
+    <app-navbar title="Admin Dashboard"></app-navbar>
+
+    <div class="mt-3">
+        <div class="row">
+            <div class="col">
+               <ul class="list-group">
+                <li class="list-group-item active d-flex align-items-center justify-content-between" aria-current="true">
+                   <span class="fw-bold">Tags List</span> 
+                   <ion-icon name="add" class="btn-icon text-light fs-4" (click)="addTag()"></ion-icon>
+                </li>
+                <li  *ngFor="let tag of tagService.tagsSubjectAdmin.value" class="list-group-item d-flex align-items-center justify-content-between">
+                  <span class="text-dark text-light-emphasis fw-bold">{{ tag.name }}</span>  
+                  <span>
+                    <ion-icon name="trash" class="btn-icon text-danger" (click)="delete(tag)"></ion-icon>
+                    <ion-icon name="pencil" class="btn-icon text-dark" (click)="edit(tag)"></ion-icon>
+                  </span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="col">
+                <ul class="list-group">
+                    <li class="list-group-item active bg-warning border-warning d-flex align-items-center justify-content-between" aria-current="true">
+                        <span class="fw-bold">Languages List</span> 
+                        <ion-icon name="add" class="btn-icon text-light fs-4" (click)="addLang()"></ion-icon>
+                    </li>
+                    <li  *ngFor="let language of languageService.languagesSubjectAdmin.value" class="list-group-item d-flex align-items-center justify-content-between">
+                        <span class="text-dark text-light-emphasis fw-bold">{{ language.name }}</span>  
+                        <span>
+                        <ion-icon name="trash" class="btn-icon text-danger" (click)="deleteLang(language)"></ion-icon>
+                        <ion-icon name="pencil" class="btn-icon text-dark" (click)="editLang(language)"></ion-icon>
+                        </span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <table class="table mt-5">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Username</th>
+                <th scope="col">Role</th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let user of userService.usersSubjectAdmin.value; let i = index">
+                <th scope="row">{{ i }}</th>
+                <td class="fw-bold text-light-emphasis">{{ user.username | uppercase }}</td>
+                <td>{{ user.role | lowercase }}</td>
+                <td class="justify-content-end d-flex">
+                    <button *ngIf="user.role == ROLE.ROLE_USER" class="btn btn-warning btn-sm" (click)="changeRole(user)">Set as admin</button>
+                    <button  *ngIf="user.role == ROLE.ROLE_ADMIN" class="btn btn-warning btn-sm" (click)="changeRole(user)">Set as user</button>
+                    <button class="btn btn-primary btn-sm ms-2" routerLink="/admin-comments/{{user.id}}">View comments</button>
+                    <button class="btn btn-danger btn-sm ms-2" (click)="changePassword(user)">Change password</button>
+                    <button class="btn btn-danger btn-sm ms-2" (click)="deleteUser(user)">Delete user</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+</div>
+
+
+
